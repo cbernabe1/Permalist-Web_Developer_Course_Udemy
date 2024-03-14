@@ -1,10 +1,8 @@
 <%- include('partials/header.ejs'); -%>
 
-  <div class="box" id="heading">
-    <h1>
-      <%= listTitle %>
-    </h1>
-  </div>
+    <form action="/" method="get">
+      <input class="filter" value="<%= listTitle %>" type="submit"/>
+    </form>
   <div class="box">
     <% for(let item of listItems){%>
       <div class="item">
@@ -14,11 +12,15 @@
 
         <p id="title<%=item.id%>">
           <%= item.name %>
+          /
+          <%= item.type %>
         </p>
 
         <form class="edit" action="/edit" method="post">
           <input type="hidden" name="updatedItemId" value="<%= item.id %>">
           <input id="input<%=item.id%>" type="text" name="updatedItemTitle" value="<%= item.name %>" autocomplete="off"
+            autofocus="true" hidden="true" />
+            <input id="input<%=item.id%>" type="text" name="updatedItemType" value="<%= item.type %>" autocomplete="off"
             autofocus="true" hidden="true" />
           <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
               src="/assets/icons/check-solid.svg" alt="tick image"></button>
@@ -30,6 +32,7 @@
 
         <form class="item" action="/add" method="post">
           <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus="true" />
+          <input type="text" name="newType" placeholder="Item Type" autocomplete="off" autofocus="true"/>
           <button class="add" type="submit" name="list" value=<%=listTitle %> >+</button>
         </form>
   </div>
